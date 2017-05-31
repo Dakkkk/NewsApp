@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">NewsApp</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="settings_section_key">section_key</string>
+    <string name="settings_title_key">title_key</string>
+    <string name="no_articles">No articles</string>
+    <string name="settings_menu_item">Settings</string>
+    <string name="settings_list_size_key">list_size_key</string>
+    <string name="settings_list_size_default">20</string>
+    <string name="settings_search_query_key">query_key</string>
+    <string name="settings_search_query">Android</string>
+    <string name="title_label">Title:</string>
+    <string name="section_label">Section:</string>
+    <string name="settings_search_query_title">Search for:</string>
+    <string name="settings_list_size_label">Number of articles:</string>
+</resources>
