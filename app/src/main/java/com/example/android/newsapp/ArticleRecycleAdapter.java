@@ -45,7 +45,17 @@ public class ArticleRecycleAdapter extends RecyclerView.Adapter<ArticleRecycleAd
 
     @Override
     public void onBindViewHolder(ArticleRecycleAdapter.ViewHolder holder, int position) {
-     
+        final Article currentArticle = mArticles.get(position);
+
+        holder.section.setText(currentArticle.getArticleSection());
+        holder.title.setText(currentArticle.getArticleTitle());
+
+        holder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startWebView(currentArticle.getArticleUrl());
+            }
+        });
     }
 
     @Override

@@ -110,6 +110,15 @@ public class ArticleActivity extends AppCompatActivity
         }
     }
 
+
+    //method to start webView - for ArticleRecycleAdapter
+    public void startWebView(String url) {
+        Uri articleUri = Uri.parse(url);
+        Intent websiteIntent = new Intent(Intent.ACTION_VIEW, articleUri);
+        websiteIntent.setData(Uri.parse(url));
+        startActivity(websiteIntent);
+    }
+
     @Override
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
         if (key.equals(getString(R.string.settings_search_query_key)) ||
