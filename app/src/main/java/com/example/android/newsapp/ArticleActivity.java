@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +42,10 @@ public class ArticleActivity extends AppCompatActivity
 
     private TextView mEmptyStateTextView;
 
+    private RecyclerView mRecyclerView;
+    private ArticleRecycleAdapter mRecyclerAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +55,11 @@ public class ArticleActivity extends AppCompatActivity
         ListView articleListView = (ListView) findViewById(R.id.list);
 
         mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.list_view);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+
         articleListView.setEmptyView(mEmptyStateTextView);
 
         // Create a new adapter that takes an empty list of articles as input
