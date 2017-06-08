@@ -16,8 +16,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -52,22 +50,23 @@ public class ArticleActivity extends AppCompatActivity
         setContentView(R.layout.article_activity);
 
         // Find a reference to the {@link ListView} in the layout
-        ListView articleListView = (ListView) findViewById(R.id.list);
+//        ListView articleListView = (ListView) findViewById(R.id.list);
 
         mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.list_view);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
 
-        articleListView.setEmptyView(mEmptyStateTextView);
+//        articleListView.setEmptyView(mEmptyStateTextView);
 
         // Create a new adapter that takes an empty list of articles as input
         mAdapter = new ArticleAdapter(this, new ArrayList<Article>());
 
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
-        articleListView.setAdapter(mAdapter);
+//        articleListView.setAdapter(mAdapter);
 
         // Obtain a reference to the SharedPreferences file for this app
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -77,22 +76,22 @@ public class ArticleActivity extends AppCompatActivity
 
         // Set an item click listener on the ListView, which sends an intent to a web browser
         // to open a website with more information about the selected article.
-        articleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                // Find the current article that was clicked on
-                Article currentArticle = mAdapter.getItem(position);
-
-                // Convert the String URL into a URI object (to pass into the Intent constructor)
-                Uri articleUri = Uri.parse(currentArticle.getArticleUrl());
-
-                // Create a new intent to view the article URI
-                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, articleUri);
-
-                // Send the intent to launch a new activity
-                startActivity(websiteIntent);
-            }
-        });
+//        articleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+//                // Find the current article that was clicked on
+//                Article currentArticle = mAdapter.getItem(position);
+//
+//                // Convert the String URL into a URI object (to pass into the Intent constructor)
+//                Uri articleUri = Uri.parse(currentArticle.getArticleUrl());
+//
+//                // Create a new intent to view the article URI
+//                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, articleUri);
+//
+//                // Send the intent to launch a new activity
+//                startActivity(websiteIntent);
+//            }
+//        });
 
         // Get a reference to the ConnectivityManager to check state of network connectivity
         ConnectivityManager connMgr = (ConnectivityManager)
