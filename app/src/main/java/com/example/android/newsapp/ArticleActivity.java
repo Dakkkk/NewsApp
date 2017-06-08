@@ -36,7 +36,7 @@ public class ArticleActivity extends AppCompatActivity
 
     private static final int ARTICLE_LOADER_ID = 1;
 
-    private ArticleAdapter mAdapter;
+//    private ArticleAdapter mAdapter;
 
     private TextView mEmptyStateTextView;
 
@@ -62,7 +62,7 @@ public class ArticleActivity extends AppCompatActivity
 //        articleListView.setEmptyView(mEmptyStateTextView);
 
         // Create a new adapter that takes an empty list of articles as input
-        mAdapter = new ArticleAdapter(this, new ArrayList<Article>());
+//        mAdapter = new ArticleAdapter(this, new ArrayList<Article>());
 
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
@@ -102,13 +102,19 @@ public class ArticleActivity extends AppCompatActivity
 
         // If there is a network connection, fetch data
         if (networkInfo != null && networkInfo.isConnected()) {
-            // Get a reference to the LoaderManager, in order to interact with loaders.
-            LoaderManager loaderManager = getLoaderManager();
+            mEmptyStateTextView.setVisibility(View.GONE);
 
-            // Initialize the loader. Pass in the int ID constant defined above and pass in null for
-            // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
-            // because this activity implements the LoaderCallbacks interface).
-            loaderManager.initLoader(ARTICLE_LOADER_ID, null, this);
+            // Get a reference to the LoaderManager, in order to interact with loaders.
+//            LoaderManager loaderManager = getLoaderManager();
+//
+//            // Initialize the loader. Pass in the int ID constant defined above and pass in null for
+//            // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
+//            // because this activity implements the LoaderCallbacks interface).
+//            loaderManager.initLoader(ARTICLE_LOADER_ID, null, this);
+            mRecyclerAdapter = new ArticleRecycleAdapter(ArticleActivity.this, new ArrayList<Article>());
+            mRecyclerView.setAdapter(mRecyclerAdapter);
+            LoaderManager loaderManager = getLoaderManager();
+            loaderManager.initLoader(1, null, ArticleActivity.this);
         } else {
             // Otherwise, display error
             // First, hide loading indicator so error message will be visible
@@ -134,7 +140,9 @@ public class ArticleActivity extends AppCompatActivity
         if (key.equals(getString(R.string.settings_search_query_key)) ||
                 key.equals(getString(R.string.settings_list_size_key))) {
             // Clear the ListView as a new query will be kicked off
-            mAdapter.clear();
+//            mRecyclerAdapter.clear();
+            mRecyclerAdapter = new ArticleRecycleAdapter(ArticleActivity.this, new ArrayList<Article>());
+
 
             // Hide the empty state text view as the loading indicator will be displayed
             mEmptyStateTextView.setVisibility(View.GONE);
@@ -180,20 +188,30 @@ public class ArticleActivity extends AppCompatActivity
         // Set empty state text to display "No articles found."
         mEmptyStateTextView.setText(R.string.no_articles);
 
-        // Clear the adapter of previous article data
-        mAdapter.clear();
+        mRecyclerAdapter = new ArticleRecycleAdapter(ArticleActivity.this, new ArrayList<Article>());
 
-        // If there is a valid list of {@link Article}s, then add them to the adapter's
-        // data set. This will trigger the ListView to update.
-        if (articles != null && !articles.isEmpty()) {
-            mAdapter.addAll(articles);
+        if(articles != null && !articles.isEmpty()){
+
+            mRecyclerAdapter = new ArticleRecycleAdapter(ArticleActivity.this, articles);
+            mRecyclerView.setAdapter(mRecyclerAdapter);
         }
+
+        // Clear the adapter of previous article data
+//        mAdapter.clear();
+//
+//        // If there is a valid list of {@link Article}s, then add them to the adapter's
+//        // data set. This will trigger the ListView to update.
+//        if (articles != null && !articles.isEmpty()) {
+//            mAdapter.addAll(articles);
+//        }
     }
 
     @Override
     public void onLoaderReset(Loader<List<Article>> loader) {
         // Loader reset, so we can clear out our existing data.
-        mAdapter.clear();
+//        mAdapter.clear();
+        mRecyclerAdapter = new ArticleRecycleAdapter(ArticleActivity.this, new ArrayList<Article>());
+
     }
 
     @Override
